@@ -1,0 +1,24 @@
+<div class="auth container col-md-12 col-sm-12">
+  <div class="auth_children login col-md-5 col-sm-5">
+    <h5>Log in to continue your adventure !</h5>
+    <form class="form-container" [formGroup]="authLoginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group home-datetime">
+        <label>
+          Date :
+          <input type="date" formControlName="date" class="form-control auth_child">
+        </label>
+      </div>
+      <div class="form-group home-datetime">
+        <label>
+          Hour :
+          <select formControlName="hour">
+            <option *ngFor="let hour of arrayHours">
+              {{hour}}
+            </option>
+          </select>
+        </label>
+      </div>
+      <button type="submit" [disabled]="!authLoginForm.valid" class="btn btn-primary auth_submit">Submit</button>
+    </form>
+  </div>
+</div>
