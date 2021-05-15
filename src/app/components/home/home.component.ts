@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PageviewsService} from '../../service/pageviews.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DateTimeFormat} from '../../models/DateTimeFormat';
+import {Page} from '../../models/Page';
+import {Pages} from '../../models/Pages';
+import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-home',
@@ -9,36 +10,64 @@ import {DateTimeFormat} from '../../models/DateTimeFormat';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  authLoginForm = new FormGroup({
-    date: new FormControl('', Validators.required),
-    hour: new FormControl('', Validators.required),
-  });
-  hours = 24;
-  arrayHours: Array<string> = new Array<string>();
-  constructor(public pageviewsService: PageviewsService) { }
+  arrayAllPagesByCountry = {};
+  keys = [];
+  arrayPages: Page[] = new Array<Page>();
+  countriesSelected = {};
+  selectedKeys = [];
+  ngSelection: NgSelectComponent;
 
-  onSubmit() {
-    console.log(this.authLoginForm.value);
-    const date = this.authLoginForm.value.date;
-    const hour = this.authLoginForm.value.hour;
-    const arrDate = date.split('-');
-    const dateTimeFormat: DateTimeFormat = new DateTimeFormat(arrDate[0], arrDate[1], arrDate[2], hour);
-    this.pageviewsService.uploadFile(dateTimeFormat).subscribe(res => {
-      console.log('subscribed and received');
-    });
+  constructor(public pageviewsService: PageviewsService) {
+  }
+
+  getArrayAllPagesByCountry(a) {
+    console.log(a);
+    this.arrayAllPagesByCountry = a;
+  }
+  getKeys(keys) {
+    console.log(keys);
+    this.keys = keys;
+  }
+  getCountriesSelected(countries) {
+    this.countriesSelected = countries;
+  }
+  getSelectedKeys(keys) {
+    this.selectedKeys = keys;
+  }
+  getDeletionSignal(element) {
+    console.log(element);
+    const i = this.selectedKeys.indexOf(element);
+    this.selectedKeys.splice(i, 1);
+    delete this.countriesSelected[element];
+    this.ngSelection.clearItem(element);
+  }
+  getDeletionSignalFromSelection(arrayDiff) {
+    const i = this.selectedKeys.indexOf(arrayDiff);
+    this.selectedKeys.splice(i, 1);
+    delete this.countriesSelected[arrayDiff];
+  }
+  getElementSelection(ngSelection: NgSelectComponent) {
+    this.ngSelection = ngSelection;
   }
   ngOnInit() {
-    let i = 0;
-    while (i < this.hours) {
-      let hourToString = '';
-      if (i < 10) {
-        hourToString = '0' + i.toString();
-      } else {
-        hourToString = i.toString();
-      }
-      this.arrayHours.push(hourToString);
-      i++;
-    }
+    this.pageviewsService.eventEmitter.subscribe(res => {
+      let totalViews = 0;
+      this.arrayPages = res.map((d) => {
+        const pagesByCountry: Pages = new Pages();
+        pagesByCountry.pagesByCountry = new Array<Page>();
+        totalViews += parseInt(d.views, 10);
+        const page = new Page(d.country, d.blacklisted, d.name, d.views, d.responseSize);
+        pagesByCountry.pagesByCountry.push(page);
+        pagesByCountry.country = page.country;
+        return pagesByCountry;
+      });
+      this.arrayAllPagesByCountry[this.arrayPages[0].country] = {};
+      this.arrayAllPagesByCountry[this.arrayPages[0].country].pages = this.arrayPages;
+      this.arrayAllPagesByCountry[this.arrayPages[0].country].totalViews = totalViews;
+      totalViews = 0;
+      console.log(this.arrayAllPagesByCountry);
+      this.keys = Object.keys(this.arrayAllPagesByCountry);
+    });
   }
 
 }

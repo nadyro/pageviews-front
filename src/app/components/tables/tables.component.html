@@ -1,0 +1,35 @@
+<table *ngIf="selectedKeys.length > 0" class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="col header" scope="col">Country</th>
+    <th class="col header" scope="col">Pages</th>
+    <th class="col header" scope="col">Total views</th>
+    <th class="col header" scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let k of selectedKeys">
+  <tr>
+    <td>{{k}}</td>
+    <td>
+      <table class="table table-sm table-borderless">
+        <thead>
+        <tr>
+          <th class="col-10" scope="col">Page Name</th>
+          <th class="col-2" scope="col">Views</th>
+        </tr>
+        </thead>
+        <ng-container *ngFor="let ap of countriesSelected[k].pages">
+          <tbody *ngFor="let a of ap.pagesByCountry">
+          <tr>
+            <td>{{a.name}}</td>
+            <td>{{a.views}}</td>
+          </tr>
+          </tbody>
+        </ng-container>
+      </table>
+    </td>
+    <td>{{countriesSelected[k].totalViews}}</td>
+    <td class="deletion" (click)="sendDeleteSelectionSignal(k)"><img src="../../../assets/images/delete-trash.png" alt="delete_{{k}}"></td>
+  </tr>
+  </tbody>
+</table>

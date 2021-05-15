@@ -1,0 +1,13 @@
+<div *ngIf="keys.length > 0" [formGroup]="formGroup">
+  <label for="genericSelection">
+    Sub-domains
+  </label>
+  <ng-select
+    [appendTo]="'.ng-select'"
+    #genericSelection
+    (click)="getSelectionElement(genericSelection)"
+    formControlName="selection"
+    [items]="keys"
+    [multiple]="true">
+  </ng-select>
+</div>

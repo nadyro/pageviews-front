@@ -1,0 +1,31 @@
+<form class="form-container" [formGroup]="dateTimeForm"
+      (ngSubmit)="onSubmit()">
+  <div class="form-group home-datetime col">
+    <div class="date-container col">
+      <label for="date">
+        Date
+      </label>
+      <input type="date" formControlName="date" class="form-control">
+    </div>
+
+    <div class="hour-container col">
+      <label for="hour">
+        Hour
+      </label>
+      <select class="form-select col" formControlName="hour" aria-label="Hour selection">
+        <option selected>Select an hour</option>
+        <option *ngFor="let hour of arrayHours">
+          {{hour}}
+        </option>
+      </select>
+    </div>
+
+
+    <button type="submit" [disabled]="!dateTimeForm.valid" class="btn btn-primary col">
+        <span *ngIf="isLoading">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+        </span>
+      <span *ngIf="!isLoading">Submit</span>
+    </button>
+  </div>
+</form>

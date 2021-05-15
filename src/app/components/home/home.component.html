@@ -1,24 +1,61 @@
-<div class="auth container col-md-12 col-sm-12">
-  <div class="auth_children login col-md-5 col-sm-5">
-    <h5>Log in to continue your adventure !</h5>
-    <form class="form-container" [formGroup]="authLoginForm" (ngSubmit)="onSubmit()">
-      <div class="form-group home-datetime">
-        <label>
-          Date :
-          <input type="date" formControlName="date" class="form-control auth_child">
-        </label>
-      </div>
-      <div class="form-group home-datetime">
-        <label>
-          Hour :
-          <select formControlName="hour">
-            <option *ngFor="let hour of arrayHours">
-              {{hour}}
-            </option>
-          </select>
-        </label>
-      </div>
-      <button type="submit" [disabled]="!authLoginForm.valid" class="btn btn-primary auth_submit">Submit</button>
-    </form>
+<div class="container">
+  <div class="card description-1">
+    <h4>
+      What is Pageviews ?
+    </h4>
+    <p>
+      Pageviews is a website that allows you to peek an eye on Wikipedia pages views across the world.
+    </p>
   </div>
+
+  <div class="card explaination">
+    <h4>
+      How does it work ?
+    </h4>
+    <p>
+      This form down here allows you to select a date at which you want to browse data from Wikipedia pages.
+    </p>
+    <p>
+      You also have to select an hour of the day you chose.
+    </p>
+
+    <p>
+      Once you're all set, click 'Submit' to trigger the Wikipedia pages computing.
+    </p>
+  </div>
+  <div class="card next">
+    <h4>
+      Okay, what's next ?
+    </h4>
+    <p>
+      Next, if it is the first time you ask for a date, please allow few seconds for the system to process the data it
+      fetches.
+    </p>
+
+    <p>
+      Once it is done, you will see a Sub-domains selector under the form.
+    </p>
+    <p>
+      There, select all the sub-domains you want to check.
+    </p>
+  </div>
+  <app-date-time-input
+    (arrayAllPagesByCountry)="getArrayAllPagesByCountry($event)"
+    (keys)="getKeys($event)">
+  </app-date-time-input>
+
+  <app-selection
+    [keys]="keys"
+    [arrayAllPagesByCountry]="arrayAllPagesByCountry"
+    (countriesSelected)="getCountriesSelected($event)"
+    (selectedKeys)="getSelectedKeys($event)"
+    (ngSelection)="getElementSelection($event)"
+    (deletionSignalFromSelection)="getDeletionSignalFromSelection($event)">
+  </app-selection>
+  <app-tables [countriesSelected]="countriesSelected"
+              [selectedKeys]="selectedKeys"
+              (deleteSelection)="getDeletionSignal($event)">
+  </app-tables>
 </div>
+
+

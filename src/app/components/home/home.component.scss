@@ -4,3 +4,46 @@
 .home-datetime {
   display: inline-flex;
 }
+.page {
+  display: block;
+  padding: 10px;
+}
+.page-name {
+  word-wrap: break-word;
+}
+table {
+  position: relative;
+}
+
+th {
+  background-color: white;
+}
+th.header {
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+.description{
+
+}
+
+.description-1 {
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+h2 {
+  text-align: center;
+}
+.explaination {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+.next {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
