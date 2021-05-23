@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<app-header *ngIf="!isLoggedIn"></app-header>
+<app-header-online class="header-online" *ngIf="isLoggedIn"></app-header-online>
+<div class="top">
+  <router-outlet></router-outlet>
+</div>
+
+

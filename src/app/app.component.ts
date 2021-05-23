@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
-import {NgSelectConfig} from '@ng-select/ng-select';
+import {Component, OnInit} from '@angular/core';
+import {StorageValues} from './models/StorageValues/StorageValues';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'pageviews-front';
 
-  constructor(private config: NgSelectConfig) {
-    this.config.notFoundText = 'Custom not found';
-    this.config.appendTo = 'body';
-    this.config.bindValue = 'value';
+  constructor() {
+  }
+
+  isLoggedIn = false;
+
+  ngOnInit() {
+    if (localStorage.getItem(StorageValues.localStorage.user)) {
+      this.isLoggedIn = true;
+    }
   }
 }

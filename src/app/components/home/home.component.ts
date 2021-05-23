@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PageviewsService} from '../../service/pageviews.service';
 import {Page} from '../../models/Page';
 import {Pages} from '../../models/Pages';
@@ -9,23 +9,37 @@ import {NgSelectComponent} from '@ng-select/ng-select';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   arrayAllPagesByCountry = {};
   keys = [];
   arrayPages: Page[] = new Array<Page>();
   countriesSelected = {};
   selectedKeys = [];
   ngSelection: NgSelectComponent;
-
+  computingMessage;
+  endOfWrite = '';
   constructor(public pageviewsService: PageviewsService) {
   }
+  // @ts-ignore
+  @ViewChild('selection') selection: ElementRef;
 
+  getOnSubmitClickedEvent() {
+    this.keys = [];
+    this.arrayAllPagesByCountry = {};
+    this.selectedKeys = [];
+    this.countriesSelected = {};
+    this.endOfWrite = '';
+    if (this.ngSelection) {
+      this.ngSelection.items = [];
+      this.ngSelection.itemsList.clearSelected();
+      this.selectedKeys = [];
+      this.countriesSelected = {};
+    }
+  }
   getArrayAllPagesByCountry(a) {
-    console.log(a);
     this.arrayAllPagesByCountry = a;
   }
   getKeys(keys) {
-    console.log(keys);
     this.keys = keys;
   }
   getCountriesSelected(countries) {
@@ -35,7 +49,6 @@ export class HomeComponent implements OnInit {
     this.selectedKeys = keys;
   }
   getDeletionSignal(element) {
-    console.log(element);
     const i = this.selectedKeys.indexOf(element);
     this.selectedKeys.splice(i, 1);
     delete this.countriesSelected[element];
@@ -46,9 +59,12 @@ export class HomeComponent implements OnInit {
     this.selectedKeys.splice(i, 1);
     delete this.countriesSelected[arrayDiff];
   }
-  getElementSelection(ngSelection: NgSelectComponent) {
-    this.ngSelection = ngSelection;
+
+  ngAfterViewInit() {
+    // @ts-ignore
+    this.ngSelection = this.selection.genericSelection;
   }
+
   ngOnInit() {
     this.pageviewsService.eventEmitter.subscribe(res => {
       let totalViews = 0;
@@ -65,8 +81,14 @@ export class HomeComponent implements OnInit {
       this.arrayAllPagesByCountry[this.arrayPages[0].country].pages = this.arrayPages;
       this.arrayAllPagesByCountry[this.arrayPages[0].country].totalViews = totalViews;
       totalViews = 0;
-      console.log(this.arrayAllPagesByCountry);
       this.keys = Object.keys(this.arrayAllPagesByCountry);
+    });
+    this.pageviewsService.eventEmitterOnEndOfComputing.subscribe(res => {
+      this.ngSelection.items = [];
+      this.arrayAllPagesByCountry = res.pageviews;
+      this.keys = Object.keys(res.pageviews);
+      this.endOfWrite = this.keys.length.toString();
+      this.pageviewsService.eventEmitterNotifier.emit('end');
     });
   }
 

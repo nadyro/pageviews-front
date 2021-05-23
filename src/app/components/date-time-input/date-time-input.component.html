@@ -2,30 +2,59 @@
       (ngSubmit)="onSubmit()">
   <div class="form-group home-datetime col">
     <div class="date-container col">
-      <label for="date">
-        Date
+      <label>
+        From
       </label>
       <input type="date" formControlName="date" class="form-control">
+
+      <ng-container *ngIf="showDateTo">
+        <label>
+          To
+        </label>
+        <input [class.is-invalid]="(dateTimeForm.get('dateTo').touched || dateTimeForm.get('dateTo').dirty) && dateTimeForm.get('dateTo').invalid"
+          type="date" formControlName="dateTo" min="{{dateTimeForm.value.date}}" class="form-control">
+      </ng-container>
     </div>
 
     <div class="hour-container col">
-      <label for="hour">
-        Hour
+      <label>
+        Hour from
       </label>
-      <select class="form-select col" formControlName="hour" aria-label="Hour selection">
+      <select class="form-select col" [value]="dateTimeFormatFromStorage ? dateTimeFormatFromStorage.hour: 'Select an hour'" formControlName="hour" aria-label="Hour selection">
         <option selected>Select an hour</option>
         <option *ngFor="let hour of arrayHours">
           {{hour}}
         </option>
       </select>
+
+      <ng-container *ngIf="showHourTo">
+        <label>
+          Hour to
+        </label>
+        <select [class.is-invalid]="(dateTimeForm.get('hourTo').touched || dateTimeForm.get('hourTo').dirty) && dateTimeForm.get('hourTo').invalid"
+                class="form-select col" [value]="dateTimeToFormatFromStorage ? dateTimeToFormatFromStorage.hour: 'Select an hour'" formControlName="hourTo" aria-label="Hour selection">
+          <option selected>Select an hour</option>
+          <option *ngFor="let hour of arrayHoursTo">
+            {{hour}}
+          </option>
+        </select>
+      </ng-container>
     </div>
 
+    <button type="submit" [disabled]="!dateTimeForm.valid || isLoading" class="btn btn-primary btnSubmit col">
 
-    <button type="submit" [disabled]="!dateTimeForm.valid" class="btn btn-primary col">
+<!--      <ngx-spinner style="position: absolute" [zIndex]="0"[bdColor]="'transparent'" [fullScreen]="false" type="pacman" size="small">-->
+<!--      </ngx-spinner>-->
         <span *ngIf="isLoading">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
         </span>
       <span *ngIf="!isLoading">Submit</span>
     </button>
+    <p>{{errorMessage}}</p>
+    <div *ngIf="downloadProgress" class="download-progress progress">
+      <p class="progress-message">{{progressMessage}}</p>
+      <div class="progress-bar progress-bar-striped {{isAnimatedProgressBar ? 'progress-bar-animated' : ''}}" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width.%]="downloadProgress.percent * 100"></div>
+    </div>
+    <p>{{remarks}}</p>
   </div>
 </form>

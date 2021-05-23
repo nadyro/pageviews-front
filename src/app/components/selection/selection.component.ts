@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-selection',
@@ -10,19 +9,19 @@ import {NgSelectComponent} from '@ng-select/ng-select';
 export class SelectionComponent implements OnInit {
   @Input() keys: string[];
   @Input() arrayAllPagesByCountry: [];
+  @Input() endOfWrite;
   @Output() countriesSelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() selectedKeys: EventEmitter<any> = new EventEmitter<any>();
-  @Output() ngSelection: EventEmitter<NgSelectComponent> = new EventEmitter<NgSelectComponent>();
   @Output() deletionSignalFromSelection: EventEmitter<string> = new EventEmitter<string>();
   countriesSelectedBeforeEmit = {};
   selectedKeysBeforeEmit = [];
   formGroup: FormGroup;
-
-  constructor() { }
-
-  getSelectionElement(element: NgSelectComponent) {
-    this.ngSelection.emit(element);
+  @Input() fromProfile: boolean;
+  constructor() {
   }
+
+  // @ts-ignore
+  @ViewChild('genericSelection') genericSelection: ElementRef;
   getArrayDiff(ar, ar1) {
     let i = 0;
     while (i < ar.length) {
@@ -35,7 +34,9 @@ export class SelectionComponent implements OnInit {
     }
     return null;
   }
+
   ngOnInit() {
+
     this.formGroup = new FormGroup({
       selection: new FormControl('', Validators.required),
     });
@@ -45,12 +46,7 @@ export class SelectionComponent implements OnInit {
       if (arrayDiff !== null) {
         this.deletionSignalFromSelection.emit(arrayDiff);
       }
-      if (values.selection.length < items.length) {
-        console.log(items[values.selection.length]);
-      }
       items = values.selection;
-      console.log(items);
-
       values.selection.forEach(s => {
         this.countriesSelectedBeforeEmit[s] = this.arrayAllPagesByCountry[s];
         this.selectedKeysBeforeEmit = Object.keys(this.countriesSelectedBeforeEmit);

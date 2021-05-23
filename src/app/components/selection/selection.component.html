@@ -1,11 +1,10 @@
-<div *ngIf="keys.length > 0" [formGroup]="formGroup">
-  <label for="genericSelection">
-    Sub-domains
+<div class="{{keys.length > 0 ? 'ng-selection' : 'ng-selection-hidden'}}{{ fromProfile ? ' fromProfile' : ''}}" [formGroup]="formGroup">
+  <label>
+    Sub-domains :  {{keys.length}} / {{endOfWrite ? endOfWrite : 'n'}}
   </label>
   <ng-select
     [appendTo]="'.ng-select'"
     #genericSelection
-    (click)="getSelectionElement(genericSelection)"
     formControlName="selection"
     [items]="keys"
     [multiple]="true">
