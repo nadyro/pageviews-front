@@ -124,6 +124,8 @@ export class DateTimeInputComponent implements OnInit {
       this.isAnimatedProgressBar = false;
       setTimeout(() => {
         this.progressMessage = 'Computing...';
+        this.isLoading = false;
+        this.downloadProgress = undefined;
       }, 5000);
     });
     this.pageviewsService.eventEmitterNotifier.subscribe(() => {

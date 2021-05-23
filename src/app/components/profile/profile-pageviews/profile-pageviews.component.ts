@@ -26,6 +26,7 @@ export class ProfilePageviewsComponent implements OnInit, AfterViewInit {
   selectedKeys = [];
   endOfWrite = '';
   elementClicked;
+  element;
   // @ts-ignore
   @ViewChild('selection') selection: ElementRef;
 
@@ -64,18 +65,11 @@ export class ProfilePageviewsComponent implements OnInit, AfterViewInit {
     dateTimeFormat.day = tmpName[1][6] + tmpName[1][7];
     dateTimeFormat.hour = tmpName[2][0] + tmpName[2][1];
     dateTimeFormat.user = this.user;
+    this.element = element;
     // @ts-ignore
     element.childNodes[1].childNodes[2].classList.add('displayed');
-    this.pageViewService.downloadFile(dateTimeFormat, dateTimeFormat, true).subscribe(res => {
-      // @ts-ignore
-      element.childNodes[1].childNodes[2].classList.remove('displayed');
-      if (res.pageviews) {
-        this.profileService.getPageviews(this.user.id).subscribe(r => {
-          if (r && r.status === 200) {
-            this.pageViews = r.object;
-          }
-        });
-      }
+    this.pageViewService.downloadFile(dateTimeFormat, dateTimeFormat, '3').subscribe(res => {
+      console.log(res);
     });
   }
   fetchPageView(id: string, element) {
@@ -106,6 +100,17 @@ export class ProfilePageviewsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.pageViewService.eventEmitterOnEndOfDownload.subscribe(res => {
+      // @ts-ignore
+      this.element.childNodes[1].childNodes[2].classList.remove('displayed');
+      if (res) {
+        this.profileService.getPageviews(this.user.id).subscribe(r => {
+          if (r && r.status === 200) {
+            this.pageViews = r.object;
+          }
+        });
+      }
+    });
     this.user = new User().createUser(JSON.parse(localStorage.getItem(StorageValues.localStorage.user)));
     this.profileService.getPageviews(this.user.id).subscribe(res => {
       if (res && res.status === 200) {

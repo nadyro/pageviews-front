@@ -15,6 +15,8 @@ export class PageviewsService {
   public eventEmitter: EventEmitter<Page> = new EventEmitter<Page>();
   public eventEmitterOnEndOfComputing: EventEmitter<any> = new EventEmitter<any>();
   public eventEmitterNotifier: EventEmitter<any> = new EventEmitter<any>();
+  public eventEmitterOnEndOfDownload: EventEmitter<any> = new EventEmitter<any>();
+
   private socket;
   private cancelRes = false;
   constructor(private http: HttpClient, socketService: SocketServiceService) {
@@ -36,9 +38,12 @@ export class PageviewsService {
         this.eventEmitterOnEndOfComputing.emit(res);
       });
     });
+    this.socket.on(EventTypes.endOfDownload, () => {
+      this.eventEmitterOnEndOfDownload.emit('3');
+    });
   }
 
-  public downloadFile(dateTimeFormat: DateTimeFormat, dateTimeFormatTo: DateTimeFormat, secondRequest: boolean): Observable<any> {
+  public downloadFile(dateTimeFormat: DateTimeFormat, dateTimeFormatTo: DateTimeFormat, secondRequest: any): Observable<any> {
     const objToSend = {
       dateTimeFormat,
       dateTimeFormatTo,

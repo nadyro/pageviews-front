@@ -42,9 +42,6 @@
     </div>
 
     <button type="submit" [disabled]="!dateTimeForm.valid || isLoading" class="btn btn-primary btnSubmit col">
-
-<!--      <ngx-spinner style="position: absolute" [zIndex]="0"[bdColor]="'transparent'" [fullScreen]="false" type="pacman" size="small">-->
-<!--      </ngx-spinner>-->
         <span *ngIf="isLoading">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
         </span>

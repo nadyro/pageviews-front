@@ -11,7 +11,7 @@ import {LoginService} from '../../service/login.service';
 export class SignInComponent implements OnInit {
   @Output() goToLoginEvent: EventEmitter<any> = new EventEmitter<any>();
   loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
   });

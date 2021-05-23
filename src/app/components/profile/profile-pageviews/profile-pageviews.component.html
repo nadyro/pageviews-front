@@ -1,6 +1,7 @@
 <div class="row">
-  <div class="col-4 row">
-    <div class="col-6 pageviews-container">
+  <div class="col-6 row">
+    <div class="col-7 pageviews-container">
+      <h4>Previous Page Views</h4>
       <div #element *ngFor="let pageView of pageViews" class="pageviews-profile {{pageView.isAvailable ? '' : 'not-available'}}">
         <div *ngIf="!pageView.isAvailable" class="not-available-panel">
           <div class="arrow-left"></div>
@@ -15,17 +16,22 @@
         <span>{{pageView['dateToDisplay']}}</span>
       </div>
     </div>
-    <app-selection
-      class="col-6 app-selection"
-      #selection
-      [fromProfile]="true"
-      [endOfWrite]="endOfWrite"
-      [keys]="keys"
-      [arrayAllPagesByCountry]="arrayAllPagesByCountry"
-      (countriesSelected)="getCountriesSelected($event)"
-      (selectedKeys)="getSelectedKeys($event)"
-      (deletionSignalFromSelection)="getDeletionSignalFromSelection($event)">
-    </app-selection>
+
+    <div class="col-5 selection-container">
+      <h4>Select a sub-domain</h4>
+      <app-selection
+        class="row app-selection"
+        #selection
+        [title]="'Select a Page View'"
+        [fromProfile]="true"
+        [endOfWrite]="endOfWrite"
+        [keys]="keys"
+        [arrayAllPagesByCountry]="arrayAllPagesByCountry"
+        (countriesSelected)="getCountriesSelected($event)"
+        (selectedKeys)="getSelectedKeys($event)"
+        (deletionSignalFromSelection)="getDeletionSignalFromSelection($event)">
+      </app-selection>
+    </div>
   </div>
   <div class="col-6">
     <app-tables

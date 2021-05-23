@@ -90,4 +90,10 @@
 .pageviews-container {
   height: 500px;
   overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.selection-container h4, .pageviews-container h4 {
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
