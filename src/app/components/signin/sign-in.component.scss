@@ -1,0 +1,35 @@
+.login {
+  height: 400px;
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  padding: 20px 15px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  font-family: Source Code Pro, monospace;
+}
+.form-control::placeholder {
+  font-size: 12px;
+}
+
+.first_part input {
+  padding: 15px;
+  margin-bottom: 10px;
+}
+.auth_submit {
+  background-color: rgb(44, 163, 128) !important;
+  border: none;
+  width: 100%;
+}
+.account-exists {
+  font-size: 10px;
+}
+.account-exists-login {
+  cursor: pointer;
+}
+.account-exists-login:hover {
+  text-decoration: underline;
+}
+.user-exists{
+  color: red;
+  font-size: 10px;
+}

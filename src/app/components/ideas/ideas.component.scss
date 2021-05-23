@@ -1,0 +1,48 @@
+.img-author img {
+  width: 100px;
+  border-radius: 50px;
+  height: 100px;
+  border: solid 1px white;
+  box-shadow: 0 0 1px black;
+}
+.article-author {
+  display: flex;
+  padding: 20px 0;
+  margin-bottom: 50px;
+}
+.author-infos {
+  margin-left: 10px;
+}
+.container-author-infos .name:hover {
+  color: #6ab3fb;
+  transition: color .2s ease;
+}
+.container-author-infos .name {
+  cursor: pointer;
+  color: #2e94fa;
+}
+.container-author-infos .role {
+  cursor: pointer;
+  color: #a3a0a0;
+}
+.container-author-infos .date {
+  font-size: 12px;
+}
+.container-author-infos {
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%;
+}
+.container-author-infos p {
+  margin: 0;
+}
+.article-container h4 {
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+.article-content-header {
+  margin-bottom: 50px;
+}
+.quote {
+  font-style: oblique;
+}

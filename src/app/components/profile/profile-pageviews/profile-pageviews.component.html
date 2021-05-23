@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-4 row">
+    <div class="col-6 pageviews-container">
+      <div #element *ngFor="let pageView of pageViews" class="pageviews-profile {{pageView.isAvailable ? '' : 'not-available'}}">
+        <div *ngIf="!pageView.isAvailable" class="not-available-panel">
+          <div class="arrow-left"></div>
+          <img src="assets/images/download.png" alt="download" (click)="downloadPageView(pageView, element)">
+          <div class="spinner-container">
+            <div class="spinner-border spinner-download spinner-border-sm" role="status" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p (click)="fetchPageView(pageView.id, element)">
+          {{pageView['name']}}
+        </p>
+        <span>{{pageView['dateToDisplay']}}</span>
+      </div>
+    </div>
+    <app-selection
+      class="col-6 app-selection"
+      #selection
+      [fromProfile]="true"
+      [endOfWrite]="endOfWrite"
+      [keys]="keys"
+      [arrayAllPagesByCountry]="arrayAllPagesByCountry"
+      (countriesSelected)="getCountriesSelected($event)"
+      (selectedKeys)="getSelectedKeys($event)"
+      (deletionSignalFromSelection)="getDeletionSignalFromSelection($event)">
+    </app-selection>
+  </div>
+  <div class="col-6">
+    <app-tables
+      [countriesSelected]="countriesSelected"
+      [selectedKeys]="selectedKeys"
+      (deleteSelection)="getDeletionSignal($event)">
+    </app-tables>
+  </div>
+</div>

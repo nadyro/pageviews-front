@@ -1,0 +1,15 @@
+<div class="row login">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p>
+      Access Wikipedia data with your Page Views account
+    </p>
+    <div class="first_part">
+        <input type="text" formControlName="email" placeholder="Email" class="form-control auth_child">
+        <input type="password" formControlName="password" placeholder="Password" class="form-control auth_child">
+        <input type="text" formControlName="username" placeholder="Username" class="form-control auth_child">
+      <span class="user-exists">{{errorMessage}}</span>
+    </div>
+    <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary auth_submit">Subscribe</button>
+    <span class="account-exists">Already have an account ? <span class="account-exists-login" (click)="goToLogin()">Login !</span></span>
+  </form>
+</div>

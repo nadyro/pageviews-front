@@ -1,0 +1,33 @@
+.header {
+  width: 100%;
+  position: relative;
+  height: 500px;
+  background: #2b5876;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.is-scrolling {
+  position: fixed;
+}
+.login {
+  position: absolute;
+  transform: translateX(-75%) translateY(-50%);
+  top: 50%;
+  left: 75%;
+}
+.title-container {
+  position: absolute;
+  transform: translateY(-50%) translateX(-25%);
+  top: 50%;
+  left: 25%;
+}
+h2, p {
+  color: white;
+  font-family: Source Code Pro, monospace;
+}
+h2 {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}

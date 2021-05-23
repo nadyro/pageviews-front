@@ -1,0 +1,32 @@
+<div class="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand img-container" routerLink="/"><img class="img-pageviews" src="assets/images/pageview-icon.jpg" alt="icon"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse header-content navbar-collapse" id="navbarNavDarkDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="color: black" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Product
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" routerLink="/improval">Improval</a></li>
+                <li><a class="dropdown-item" routerLink="/tension-points">Points of tension</a></li>
+                <li><a class="dropdown-item" routerLink="/ideas">Ideas</a></li>
+              </ul>
+            </li>
+          </ul>
+          <button type="button" routerLink="/home" class="btn btn-sm btn-outline-dark">PageViews</button>
+
+          <button type="button" routerLink="/profile/pageviews" class="btn btn-sm btn-outline-dark"><img class="col-3" style="float: left" src="assets/images/profile.png" alt="profile9con"/><span class="col-9">Profile</span></button>
+
+          <button type="button" (click)="logout()" class="btn btn-sm btn-outline-danger">Logout</button>
+        </div>
+
+      </div>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="row profile">
+  <div class="container banner-profile">
+    <div class="overlay-banner-profile"></div>
+    <div class="user-infos">
+      <p>
+        {{user.userName}}
+      </p>
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="container-profile-menu">
+
+      <nav class="nav navbar-color">
+        <a #profileRl class="nav-link first" (click)="move(profileRl)" routerLink="pageviews"><img class="col-2" src="/assets/images/pageviews-small.png"
+                                                 alt="infos"> <span class="col-10 menu-item">My PageViews <span class="badge">{{pageViewsLength}}</span></span></a>
+        <a #infosRl class="nav-link" (click)="move(infosRl)" routerLink="infos"><img class="col-2" src="/assets/images/profile.png" alt="infos"> <span
+          class="col-10 menu-item">Personal information</span></a>
+      </nav>
+    </div>
+  </div>
+  <div class="col-10">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
