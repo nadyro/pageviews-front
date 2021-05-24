@@ -20,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingComponent } from './components/landing/landing.component';
 import { ImprovalComponent } from './components/improval/improval.component';
 import { TensionPointsComponent } from './components/tension-points/tension-points.component';
-import { IdeasComponent } from './components/ideas/ideas.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { ProfileComponent } from './components/profile/profile.component';
 import {ProfileService} from './service/profile.service';
@@ -41,7 +40,6 @@ import { ProfilePageviewsComponent } from './components/profile/profile-pageview
     LandingComponent,
     ImprovalComponent,
     TensionPointsComponent,
-    IdeasComponent,
     ProfileComponent,
     ProfileInfosComponent,
     ProfilePageviewsComponent,

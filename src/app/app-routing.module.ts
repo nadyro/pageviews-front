@@ -8,7 +8,6 @@ import {AuthGuard} from './service/auth.guard';
 import {AppComponent} from './app.component';
 import {ImprovalComponent} from './components/improval/improval.component';
 import {TensionPointsComponent} from './components/tension-points/tension-points.component';
-import {IdeasComponent} from './components/ideas/ideas.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ProfileInfosComponent} from './components/profile/profile-infos/profile-infos.component';
 import {ProfilePageviewsComponent} from './components/profile/profile-pageviews/profile-pageviews.component';
@@ -33,10 +32,6 @@ const routes: Routes = [
   {
     path: 'tension-points', component: TensionPointsComponent, canActivate: [AuthGuard]
   },
-  {
-    path: 'ideas', component: IdeasComponent, canActivate: [AuthGuard]
-  },
-
   {
     path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: [
       {path: 'pageviews', component: ProfilePageviewsComponent, canActivate: [AuthGuard]},

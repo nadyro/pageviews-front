@@ -27,6 +27,7 @@ export class ProfilePageviewsComponent implements OnInit, AfterViewInit {
   endOfWrite = '';
   elementClicked;
   element;
+  isLoading = true;
   // @ts-ignore
   @ViewChild('selection') selection: ElementRef;
 
@@ -114,6 +115,7 @@ export class ProfilePageviewsComponent implements OnInit, AfterViewInit {
     this.user = new User().createUser(JSON.parse(localStorage.getItem(StorageValues.localStorage.user)));
     this.profileService.getPageviews(this.user.id).subscribe(res => {
       if (res && res.status === 200) {
+        this.isLoading = false;
         this.pageViews = res.object;
       }
     });

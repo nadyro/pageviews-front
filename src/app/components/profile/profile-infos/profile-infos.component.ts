@@ -10,10 +10,12 @@ import {StorageValues} from '../../../models/StorageValues/StorageValues';
 export class ProfileInfosComponent implements OnInit {
 
   user: User;
+  userDateSubscribed: string;
   constructor() { }
 
   ngOnInit() {
     this.user = new User().createUser(JSON.parse(localStorage.getItem(StorageValues.localStorage.user)));
+    this.userDateSubscribed = new Date(this.user.dateSubscribed).toDateString();
   }
 
 }

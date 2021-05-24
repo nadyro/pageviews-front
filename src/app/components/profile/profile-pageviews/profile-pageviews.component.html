@@ -2,6 +2,14 @@
   <div class="col-6 row">
     <div class="col-7 pageviews-container">
       <h4>Previous Page Views</h4>
+
+      <div *ngIf="isLoading" class="init-spinner-container">
+        <div class="container-spinner">
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
       <div #element *ngFor="let pageView of pageViews" class="pageviews-profile {{pageView.isAvailable ? '' : 'not-available'}}">
         <div *ngIf="!pageView.isAvailable" class="not-available-panel">
           <div class="arrow-left"></div>
